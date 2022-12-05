@@ -89,6 +89,15 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""6e3ce176-90ca-4abe-af21-4d39dcaba801"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""action"": ""MoveZ"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""366944ef-94ec-41fb-8204-8edead55f5cb"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         m_OnFoot_Bend = m_OnFoot.FindAction("Bend", throwIfNotFound: true);
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Secondary = m_OnFoot.FindAction("Secondary", throwIfNotFound: true);
+        m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +314,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Bend;
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Secondary;
+    private readonly InputAction m_OnFoot_Run;
     public struct OnFootActions
     {
         private @Controlls m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         public InputAction @Bend => m_Wrapper.m_OnFoot_Bend;
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Secondary => m_Wrapper.m_OnFoot_Secondary;
+        public InputAction @Run => m_Wrapper.m_OnFoot_Run;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +357,9 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Secondary.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondary;
                 @Secondary.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondary;
                 @Secondary.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnSecondary;
+                @Run.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -359,6 +385,9 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Secondary.started += instance.OnSecondary;
                 @Secondary.performed += instance.OnSecondary;
                 @Secondary.canceled += instance.OnSecondary;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -372,5 +401,6 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         void OnBend(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }

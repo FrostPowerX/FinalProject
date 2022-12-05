@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] Camera cam;
+    [SerializeField] Animator anim;
 
     [SerializeField] float damage;
     [SerializeField] float maxDistance;
+    [SerializeField] float deathTime;
+    float currentDeathTime;
 
     [SerializeField] Controlls controlls;
     [SerializeField] Controlls.OnFootActions onFoot;
@@ -31,7 +34,10 @@ public class PlayerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (onFoot.Shoot.triggered) shoot = true;
+        currentDeathTime -= Time.deltaTime;
+
+        shoot = (onFoot.Shoot.IsPressed()) ? true : false;
+        anim.SetBool("OnShoot", shoot);
     }
 
     private void FixedUpdate()
@@ -50,10 +56,12 @@ public class PlayerShoot : MonoBehaviour
 
                 barLife.fillAmount = target.Health / target.MaxHealth;
 
-                if (shoot)
+                if (shoot && currentDeathTime <= 0)
                 {
                     target.TakeDamage(damage);
                     Debug.Log($"Se hizo {damage} de daño a {hit.transform.gameObject.name}. Vida Restante {target.Health}");
+
+                    currentDeathTime = deathTime;
                 }
             }
             else

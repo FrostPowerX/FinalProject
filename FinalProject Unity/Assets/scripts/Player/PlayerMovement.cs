@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] Controlls controlls;
     [SerializeField] Controlls.OnFootActions onFoot;
+    [SerializeField] Animator anim;
 
     [SerializeField] Rigidbody rb;
 
     [SerializeField] float moveSpeed;
+    [SerializeField] float runSpeed;
+    float useSpeed;
+
     [SerializeField] float jumpForce;
     [SerializeField] ForceMode jumpMode;
 
@@ -43,7 +48,18 @@ public class PlayerMovement : MonoBehaviour
     {
         moveX = onFoot.MoveX.ReadValue<float>();
         moveZ = onFoot.MoveZ.ReadValue<float>();
+
         if (onFoot.Jump.triggered) jump = true;
+        if (onFoot.Run.IsPressed())
+        {
+            useSpeed = runSpeed;
+            anim.SetBool("OnRun", true);
+        }
+        else
+        {
+            useSpeed = moveSpeed;
+            anim.SetBool("OnRun", false);
+        }
     }
 
     private void FixedUpdate()
@@ -64,14 +80,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveX != 0 || moveZ != 0)
         {
-            Vector3 directionX = transform.right * moveSpeed * moveX;
-            Vector3 directionZ = transform.forward * moveSpeed * moveZ;
+            anim.SetBool("OnWalk", true);
+            Vector3 directionX = transform.right * useSpeed * moveX;
+            Vector3 directionZ = transform.forward * useSpeed * moveZ;
             rb.AddForce(directionX, ForceMode.VelocityChange);
             rb.AddForce(directionZ, ForceMode.VelocityChange);
         }
+        else anim.SetBool("OnWalk", false);
     }
     private void Jump()
     {
+        anim.SetTrigger("Jump");
         Vector3 directionY = transform.up * jumpForce;
         rb.AddForce(directionY, jumpMode);
     }
