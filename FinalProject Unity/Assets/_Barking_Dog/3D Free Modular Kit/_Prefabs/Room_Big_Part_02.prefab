@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 6573736}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 6582718}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 6578366}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 6500474}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 6535652}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 480456}
   m_Layer: 0
   m_Name: Room_Big_Part_02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1402,7 +1402,7 @@ GameObject:
   - component: {fileID: 6594698}
   m_Layer: 0
   m_Name: Floor_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

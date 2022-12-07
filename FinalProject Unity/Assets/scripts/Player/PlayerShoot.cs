@@ -19,6 +19,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] Image puntero;
     [SerializeField] Image barLife;
     [SerializeField] GameObject panel;
+    [SerializeField] GameObject hitPoint;
 
     bool shoot;
 
@@ -48,21 +49,24 @@ public class PlayerShoot : MonoBehaviour
         {
             Debug.DrawRay(cam.transform.position, ray.direction * hit.distance, Color.red);
 
+            if (shoot && currentDeathTime <= 0)
+            {
+                Instantiate(hitPoint, hit.point, hit.transform.rotation, hit.transform);
+
+                if (hit.transform.GetComponent<HealthSystem>())
+                    Shoot(hit.transform.GetComponent<HealthSystem>());
+                
+                currentDeathTime = deathTime;
+            }
+
             if (hit.transform.GetComponent<HealthSystem>())
             {
                 panel.SetActive(true);
                 HealthSystem target = hit.transform.GetComponent<HealthSystem>();
+
                 puntero.color = Color.red;
 
                 barLife.fillAmount = target.Health / target.MaxHealth;
-
-                if (shoot && currentDeathTime <= 0)
-                {
-                    target.TakeDamage(damage);
-                    Debug.Log($"Se hizo {damage} de daño a {hit.transform.gameObject.name}. Vida Restante {target.Health}");
-
-                    currentDeathTime = deathTime;
-                }
             }
             else
             {
@@ -75,6 +79,10 @@ public class PlayerShoot : MonoBehaviour
             puntero.color = Color.white;
             panel.SetActive(false);
         }
-        shoot = false;
+    }
+
+    void Shoot(HealthSystem target)
+    {
+        target.TakeDamage(damage);
     }
 }

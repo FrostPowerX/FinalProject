@@ -98,6 +98,15 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d7c16a7-2b03-4736-ae6d-885e7dc1376b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -232,6 +241,17 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8795a8f0-10ed-4f9d-b3fb-50c6a5bf9739"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         m_OnFoot_Shoot = m_OnFoot.FindAction("Shoot", throwIfNotFound: true);
         m_OnFoot_Secondary = m_OnFoot.FindAction("Secondary", throwIfNotFound: true);
         m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
+        m_OnFoot_Interaction = m_OnFoot.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +336,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Shoot;
     private readonly InputAction m_OnFoot_Secondary;
     private readonly InputAction m_OnFoot_Run;
+    private readonly InputAction m_OnFoot_Interaction;
     public struct OnFootActions
     {
         private @Controlls m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_OnFoot_Shoot;
         public InputAction @Secondary => m_Wrapper.m_OnFoot_Secondary;
         public InputAction @Run => m_Wrapper.m_OnFoot_Run;
+        public InputAction @Interaction => m_Wrapper.m_OnFoot_Interaction;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +383,9 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Run.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnRun;
+                @Interaction.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
             }
         }
     }
@@ -402,5 +431,6 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnSecondary(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

@@ -29,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool jump;
 
-    Vector3 tamañoAgachado;
-    Vector3 tamañoParado;
+    public bool IsGrounded { get { return grounded; } }
 
     // Start is called before the first frame update
     void Start()

@@ -6,13 +6,13 @@ public class GroundDetector : MonoBehaviour
 {
     [SerializeField] PlayerMovement move;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Ground") move.SetGrounded(true);
+        if (move.IsGrounded == false && other.gameObject.tag == "Ground") move.SetGrounded(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Ground") move.SetGrounded(false);
+        move.SetGrounded(false);
     }
 }

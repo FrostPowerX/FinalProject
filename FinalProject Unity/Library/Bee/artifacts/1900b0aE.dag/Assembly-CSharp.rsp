@@ -358,7 +358,9 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Controlls.cs"
 "Assets/GroundDetector.cs"
+"Assets/scripts/Enemys/EnemyMovement.cs"
 "Assets/scripts/EventManager.cs"
+"Assets/scripts/GameManager.cs"
 "Assets/scripts/HealthSystem.cs"
 "Assets/scripts/InGameUI.cs"
 "Assets/scripts/Player/PlayerLoock.cs"
@@ -367,6 +369,8 @@
 "Assets/scripts/PlaySound.cs"
 "Assets/scripts/SoundManager.cs"
 "Assets/scripts/SoundSO.cs"
+"Assets/scripts/Weapons/Weapon.cs"
+"Assets/scripts/Weapons/WeaponSO.cs"
 "Assets/_Barking_Dog/Common Scripts/MouseLook.cs"
 "Assets/_Barking_Dog/Common Scripts/Turn_Move.cs"
 -langversion:9.0

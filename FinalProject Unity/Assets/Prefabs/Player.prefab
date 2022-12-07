@@ -99,7 +99,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779128591363716047}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 98f0a4fb2198a0a479cc256bc4b3b931, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -262,6 +262,7 @@ MonoBehaviour:
   puntero: {fileID: 0}
   barLife: {fileID: 0}
   panel: {fileID: 0}
+  hitPoint: {fileID: 8502882906988414352, guid: a405b859ed562904380a6ba4553a5b5c, type: 3}
 --- !u!114 &1779128591363716020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,7 +485,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4561259669219264092}
   - component: {fileID: 3050831362909554767}
-  - component: {fileID: 4503896416526057415}
   m_Layer: 0
   m_Name: FP_Camera
   m_TagString: MainCamera
@@ -550,14 +550,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &4503896416526057415
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2509653094680593620}
-  m_Enabled: 1
 --- !u!1001 &1779128592724963317
 PrefabInstance:
   m_ObjectHideFlags: 0
