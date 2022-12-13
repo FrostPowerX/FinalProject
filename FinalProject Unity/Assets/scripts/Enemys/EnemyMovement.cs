@@ -53,10 +53,11 @@ public class EnemyMovement : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, GameManager.Instance.GetPlayerPos()) > followDistance)
             {
+                if (agent.isStopped) agent.isStopped = false;
                 agent.SetDestination(GameManager.Instance.GetPlayerPos());
                 tempo = cooldown;
             }
-            else agent.SetDestination(transform.position);
+            else if (!agent.isStopped) agent.isStopped = true;
         }
     }
 }
