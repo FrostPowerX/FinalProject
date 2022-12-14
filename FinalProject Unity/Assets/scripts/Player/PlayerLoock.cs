@@ -10,6 +10,9 @@ public class PlayerLoock : MonoBehaviour
     [SerializeField] float xSensi = 30f;
     [SerializeField] float ySensi = 30f;
 
+    [SerializeField] bool invert;
+    [SerializeField] bool onMenu;
+
     [SerializeField] Controlls controlls;
     [SerializeField] Controlls.OnFootActions onFoot;
 
@@ -26,6 +29,9 @@ public class PlayerLoock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (onMenu) return;
+        if (!onMenu && Cursor.lockState == CursorLockMode.None) Cursor.lockState = CursorLockMode.Locked;
+
         LoockProcess();
     }
 
@@ -34,6 +40,8 @@ public class PlayerLoock : MonoBehaviour
         Vector2 input = onFoot.MouseLook.ReadValue<Vector2>();
         float Xmouse = input.x;
         float mouseY = input.y;
+
+        if (invert) mouseY *= -1;
 
         xRotation -= (mouseY * Time.deltaTime) * ySensi;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
@@ -47,4 +55,6 @@ public class PlayerLoock : MonoBehaviour
         xSensi = X;
         ySensi = Y;
     }
+    public void InvertMode(bool value) => invert = value;
+    public void OnMenu(bool value) => onMenu = value;
 }

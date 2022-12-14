@@ -32,27 +32,16 @@ public static class EventManager
     // ================================ Sound Sector ================================
 
     // ================================ UI Sector ================================
-    public delegate void _OnUpdatePlayerLifeUI(float currentHealth, float maxHealth);
-    public static event _OnUpdatePlayerLifeUI OnUpdatePlayerLifeUI;
 
-    public delegate void _OnUpdateWaveUI(string currentWave, int currentEnemys, int maxEnemys);
-    public static event _OnUpdateWaveUI OnUpdateWaveUI;   
 
-    public delegate void _OnUpdateScoreUI(int score);
-    public static event _OnUpdateScoreUI OnUpdateScoreUI;
-
-    public delegate void _OnPlayerDeath();
-    public static event _OnPlayerDeath OnPlayerDeath;
-    public static void UpdatePlayerLifeUI(float currentHealth, float maxHealth) => OnUpdatePlayerLifeUI?.Invoke(currentHealth, maxHealth);
-    public static void UpdateWaveUI(string currentWave, int currentEnemys, int maxEnemys) => OnUpdateWaveUI?.Invoke(currentWave, currentEnemys, maxEnemys);
-    public static void UpdateScoreUI(int score) => OnUpdateScoreUI?.Invoke(score);
-    public static void TriggerOnPlayerDeath() => OnPlayerDeath?.Invoke();
 
     // ================================ UI Sector ================================
 
     // ============================ General game sector ==========================
+    public delegate void _OnPlayerDeath();
+    public static event _OnPlayerDeath OnPlayerDeath;
 
-    
+    public static void PlayerDeath() => OnPlayerDeath?.Invoke();
 
     // ============================ General game sector ==========================
 

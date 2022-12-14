@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cb39671abfaa241a11d1d7e0b17c0f, type: 3}
+  m_Name: AK47
+  m_EditorClassIdentifier: 
+  _name: AK47
+  description: Arma Primaria con mucha potencia de fuego.
+  ammo: 30
+  maxAmmo: 30
+  damage: 15
+  reloadTime: 4
+  distance: 20
+  cooldown: 0.2
+  dispersion: 0
+  weaponType: 0
+  icon: {fileID: 21300044, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  hitPoint: {fileID: 0}
+  prefab: {fileID: 5994336219050826499, guid: 14ce6863fc7012743949364750010fe9, type: 3}

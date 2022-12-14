@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -28,5 +28,10 @@ public class GameManager : MonoBehaviour
     public Vector3 GetPlayerPos()
     {
         return player.transform.position;
+    }
+
+    public Vector3 GetPlayerHeadPos()
+    {
+        return player.transform.Find("PlayerCam").transform.position;
     }
 }

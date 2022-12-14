@@ -12,13 +12,18 @@ public class WeaponSO : ScriptableObject
     public string description;
 
     [Header("Estadisticas")]
+    public int ammo;
+    public int maxAmmo;
     public float damage;
-    public float ammo;
-    public float maxAmmo;
     public float reloadTime;
     public float distance;
     public float cooldown;
+    public float dispersion;
 
     [Header("Caracteristicas")]
-    public Image icon;
+    public WeaponType weaponType;
+    public Sprite icon;
+    public GameObject hitPoint;
+    public GameObject prefab;
+
 }

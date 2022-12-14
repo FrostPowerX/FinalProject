@@ -6,16 +6,15 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] GameObject fakeHead;
+    [SerializeField] Animator animator;
 
     [SerializeField] float cooldown;
 
     [SerializeField] float tempo;
-    [SerializeField] float maxDistance;
     [SerializeField] float followDistance;
 
+    bool moving;
     bool onView;
-    Vector3 target;
 
     // Start is called before the first frame update
     void Start()
@@ -29,22 +28,11 @@ public class EnemyMovement : MonoBehaviour
     {
         tempo = (tempo <= 0) ? 0 : tempo - Time.deltaTime;
 
-        target = GameManager.Instance.GetPlayerPos() - transform.position;
+        moving = (agent.isStopped) ? false : true;
 
+        animator.SetBool("Moving", moving);
+        
         Move();
-    }
-
-    private void FixedUpdate()
-    {
-        Ray ray = new Ray(fakeHead.transform.position, target.normalized);        
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, maxDistance))
-        {
-            Debug.DrawRay(fakeHead.transform.position, ray.direction * hit.distance, Color.green);
-
-            onView = (hit.transform.tag == "Player") ? true : false;
-        }
     }
 
     private void Move()
@@ -60,4 +48,7 @@ public class EnemyMovement : MonoBehaviour
             else if (!agent.isStopped) agent.isStopped = true;
         }
     }
+
+    public void OnView(bool value) => onView = value;
+    public void FollowDistance(float value) => followDistance = value;
 }

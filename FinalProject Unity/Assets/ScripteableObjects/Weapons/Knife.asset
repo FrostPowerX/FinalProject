@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cb39671abfaa241a11d1d7e0b17c0f, type: 3}
+  m_Name: Knife
+  m_EditorClassIdentifier: 
+  _name: Knife
+  description: Un cuchillo
+  ammo: 0
+  maxAmmo: 0
+  damage: 75
+  reloadTime: 0
+  distance: 2
+  cooldown: 3
+  dispersion: 0
+  weaponType: 2
+  icon: {fileID: 21300038, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  hitPoint: {fileID: 0}
+  prefab: {fileID: 245343041416455202, guid: 966d41352a4e34f41b96331bc70132bf, type: 3}

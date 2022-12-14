@@ -107,6 +107,60 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""6379d9ac-ba8b-45d7-8669-d1c7f61effd8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon1"",
+                    ""type"": ""Button"",
+                    ""id"": ""c793c0db-c33c-4048-99fa-f92d0750d3f2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon2"",
+                    ""type"": ""Button"",
+                    ""id"": ""82047111-e14d-4b51-83ed-6b01ed25e6cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon3"",
+                    ""type"": ""Button"",
+                    ""id"": ""2565e8c9-4880-4f73-85bd-41f0f06625ea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0c8a8eb-fa4a-4775-b711-b6a26c347b20"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DropWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""85d507d9-aed1-403c-bc6b-556773e202f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +306,72 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3da149d5-2c0e-4449-808a-825e8da92b32"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""839df8c9-adbb-4ec4-a263-7c941874a32d"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ab23a55-a351-46d8-ac22-274e3eb6381c"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ab51c63-3af1-49c7-a17b-1b9ed3793961"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29b53197-ecb2-4f60-8052-e69354e7b98a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c2274d6-f4c5-4c81-a79b-0ea06664e3bf"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +389,12 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         m_OnFoot_Secondary = m_OnFoot.FindAction("Secondary", throwIfNotFound: true);
         m_OnFoot_Run = m_OnFoot.FindAction("Run", throwIfNotFound: true);
         m_OnFoot_Interaction = m_OnFoot.FindAction("Interaction", throwIfNotFound: true);
+        m_OnFoot_Back = m_OnFoot.FindAction("Back", throwIfNotFound: true);
+        m_OnFoot_Weapon1 = m_OnFoot.FindAction("Weapon1", throwIfNotFound: true);
+        m_OnFoot_Weapon2 = m_OnFoot.FindAction("Weapon2", throwIfNotFound: true);
+        m_OnFoot_Weapon3 = m_OnFoot.FindAction("Weapon3", throwIfNotFound: true);
+        m_OnFoot_Reload = m_OnFoot.FindAction("Reload", throwIfNotFound: true);
+        m_OnFoot_DropWeapon = m_OnFoot.FindAction("DropWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -337,6 +463,12 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Secondary;
     private readonly InputAction m_OnFoot_Run;
     private readonly InputAction m_OnFoot_Interaction;
+    private readonly InputAction m_OnFoot_Back;
+    private readonly InputAction m_OnFoot_Weapon1;
+    private readonly InputAction m_OnFoot_Weapon2;
+    private readonly InputAction m_OnFoot_Weapon3;
+    private readonly InputAction m_OnFoot_Reload;
+    private readonly InputAction m_OnFoot_DropWeapon;
     public struct OnFootActions
     {
         private @Controlls m_Wrapper;
@@ -350,6 +482,12 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         public InputAction @Secondary => m_Wrapper.m_OnFoot_Secondary;
         public InputAction @Run => m_Wrapper.m_OnFoot_Run;
         public InputAction @Interaction => m_Wrapper.m_OnFoot_Interaction;
+        public InputAction @Back => m_Wrapper.m_OnFoot_Back;
+        public InputAction @Weapon1 => m_Wrapper.m_OnFoot_Weapon1;
+        public InputAction @Weapon2 => m_Wrapper.m_OnFoot_Weapon2;
+        public InputAction @Weapon3 => m_Wrapper.m_OnFoot_Weapon3;
+        public InputAction @Reload => m_Wrapper.m_OnFoot_Reload;
+        public InputAction @DropWeapon => m_Wrapper.m_OnFoot_DropWeapon;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +524,24 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Interaction.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
                 @Interaction.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
                 @Interaction.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteraction;
+                @Back.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnBack;
+                @Weapon1.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon1;
+                @Weapon1.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon1;
+                @Weapon1.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon1;
+                @Weapon2.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon2;
+                @Weapon2.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon2;
+                @Weapon2.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon2;
+                @Weapon3.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon3;
+                @Weapon3.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon3;
+                @Weapon3.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnWeapon3;
+                @Reload.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnReload;
+                @DropWeapon.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropWeapon;
+                @DropWeapon.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropWeapon;
+                @DropWeapon.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnDropWeapon;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -417,6 +573,24 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
                 @Interaction.started += instance.OnInteraction;
                 @Interaction.performed += instance.OnInteraction;
                 @Interaction.canceled += instance.OnInteraction;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+                @Weapon1.started += instance.OnWeapon1;
+                @Weapon1.performed += instance.OnWeapon1;
+                @Weapon1.canceled += instance.OnWeapon1;
+                @Weapon2.started += instance.OnWeapon2;
+                @Weapon2.performed += instance.OnWeapon2;
+                @Weapon2.canceled += instance.OnWeapon2;
+                @Weapon3.started += instance.OnWeapon3;
+                @Weapon3.performed += instance.OnWeapon3;
+                @Weapon3.canceled += instance.OnWeapon3;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
+                @DropWeapon.started += instance.OnDropWeapon;
+                @DropWeapon.performed += instance.OnDropWeapon;
+                @DropWeapon.canceled += instance.OnDropWeapon;
             }
         }
     }
@@ -432,5 +606,11 @@ public partial class @Controlls : IInputActionCollection2, IDisposable
         void OnSecondary(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
+        void OnWeapon1(InputAction.CallbackContext context);
+        void OnWeapon2(InputAction.CallbackContext context);
+        void OnWeapon3(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
+        void OnDropWeapon(InputAction.CallbackContext context);
     }
 }

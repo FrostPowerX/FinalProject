@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] ForceMode forcemode;
 
     bool jump;
+    bool onMenu;
 
     public bool IsGrounded { get { return grounded; } }
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (onMenu) return;
         moveX = onFoot.MoveX.ReadValue<float>();
         moveZ = onFoot.MoveZ.ReadValue<float>();
 
@@ -95,4 +97,5 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void SetGrounded(bool ground) => grounded = ground;
+    public void OnMenu(bool value) => onMenu = value;
 }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cb39671abfaa241a11d1d7e0b17c0f, type: 3}
+  m_Name: 9MM
+  m_EditorClassIdentifier: 
+  _name: 9MM
+  description: "Pistola ligera  con da\xF1o medio"
+  ammo: 12
+  maxAmmo: 12
+  damage: 9
+  reloadTime: 3
+  distance: 6
+  cooldown: 0.5
+  dispersion: 0
+  weaponType: 1
+  icon: {fileID: 21300028, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  hitPoint: {fileID: 0}
+  prefab: {fileID: 1356652990466303839, guid: be5ed337ea0ce7e4589190dfb43b6cb6, type: 3}
