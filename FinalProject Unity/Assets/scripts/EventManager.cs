@@ -3,9 +3,11 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
+    public static bool loadGame = false;
+
     // ================================ Sound Sector ================================
 
-    public delegate void _OnPlayMusicMenu(string key);
+    public delegate void _OnPlayMusicMenu();
     public static event _OnPlayMusicMenu OnPlayMusicMenu;
     public delegate void _OnStopMusicMenu();
     public static event _OnStopMusicMenu OnStopMusicMenu;
@@ -20,7 +22,7 @@ public static class EventManager
     public delegate void _OnStopSoundOnAS(AudioSource _as);
     public static event _OnStopSoundOnAS OnStopSoundOnAS;
 
-    public static void PlayMusicMenu(string key) => OnPlayMusicMenu?.Invoke(key);
+    public static void PlayMusicMenu() => OnPlayMusicMenu?.Invoke();
     public static void StopMusicMenu() => OnStopMusicMenu?.Invoke();
 
     public static void PlaySound(string key) => OnPlaySound?.Invoke(key);

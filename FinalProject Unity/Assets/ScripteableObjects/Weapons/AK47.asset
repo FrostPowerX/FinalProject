@@ -17,7 +17,7 @@ MonoBehaviour:
   ammo: 30
   maxAmmo: 30
   damage: 15
-  reloadTime: 4
+  reloadTime: 3.8
   distance: 20
   cooldown: 0.2
   dispersion: 0
@@ -25,3 +25,6 @@ MonoBehaviour:
   icon: {fileID: 21300044, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   hitPoint: {fileID: 0}
   prefab: {fileID: 5994336219050826499, guid: 14ce6863fc7012743949364750010fe9, type: 3}
+  Shot: {fileID: 8300000, guid: 5304d262fb31541439122e589562aecc, type: 3}
+  Reload: {fileID: 8300000, guid: 7a2c6caa8435d644ca8d9fd2d53b2555, type: 3}
+  outAmmo: {fileID: 8300000, guid: 305b3c3e7b48e2f41ac57c4f4b301aa3, type: 3}

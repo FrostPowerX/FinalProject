@@ -12,7 +12,6 @@ public class PlaySound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (active)
-            if (_as != null) EventManager.PlaySound(nameSound, _as);
+        _as.Play();
     }
 }

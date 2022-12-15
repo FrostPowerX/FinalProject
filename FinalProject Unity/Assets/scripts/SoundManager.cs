@@ -2,68 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SoundType
+{
+    Music,
+    SFX
+}
+
 public class SoundManager : MonoBehaviour
 {
+    static SoundManager _instance;
+
     [SerializeField] SoundSO[] soundList;
     [SerializeField] AudioSource musicMenu;
+    [SerializeField] AudioSource inGameMusic;
+    [SerializeField] AudioSource battleMusic;
     [SerializeField] List<AudioSource> audioSourcesList;
+
+    public static SoundManager Instance { get { return _instance; } }
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         audioSourcesList = new List<AudioSource>();
-        if (gameObject.TryGetComponent(out AudioSource music)) musicMenu = music;
-
-        EventManager.OnPlaySoundOnAS += PlaySoundOnAS;
-        EventManager.OnStopSoundOnAS += StopSoundOnAS;
-        EventManager.OnPlayMusicMenu += PlayMusicMenu;
-        EventManager.OnStopMusicMenu += StopMusicMenu;
-        EventManager.OnPlaySound += PlaySound;
-        EventManager.OnStopSound += StopSound;
     }
 
-    private void OnDestroy()
-    {
-        EventManager.OnPlaySoundOnAS -= PlaySoundOnAS;
-        EventManager.OnStopSoundOnAS -= StopSoundOnAS;
-        EventManager.OnPlayMusicMenu -= PlayMusicMenu;
-        EventManager.OnStopMusicMenu -= StopMusicMenu;
-        EventManager.OnPlaySound -= PlaySound;
-        EventManager.OnStopSound -= StopSound;
-    }
-
-    public void PlayMusicMenu(string key)
-    {
-        if (musicMenu == null)
-        {
-            Debug.LogError($"[{gameObject.name}.PlayMusicMenu]Error: \"{gameObject}\" does not contain a AudioSource!");
-            return;
-        }
-
-        SoundSO sound = null;
-        for (int i = 0; i < soundList.Length; i++)
-        {
-            if (soundList[i].keyCode == key)
-            {
-                sound = soundList[i];
-
-                musicMenu.clip = sound.clip;
-                musicMenu.pitch = sound.pitch;
-                musicMenu.volume = sound.volume;
-                musicMenu.priority = sound.priority;
-                musicMenu.spatialBlend = sound.spatialBlend;
-
-                musicMenu.minDistance = sound.minDistance;
-                musicMenu.maxDistance = sound.maxDistance;
-
-                musicMenu.loop = sound.loop;
-                musicMenu.Play();
-                return;
-            }
-        }
-        if (sound == null) Debug.LogError($"[{gameObject.name}.PlayMusicMenu]Error: \"{key}\" could not be found!");
-    }
+    public void PlayMusicMenu() => musicMenu.Play();
     public void StopMusicMenu() => musicMenu.Stop();
+
+    public void PlayMusicGame() => inGameMusic.Play();
+    public void StopMusicGame() => inGameMusic.Stop();
+
+    public void PlayMusicBattle() => battleMusic.Play();
+    public void StopMusicBattle() => battleMusic.Stop();
 
     public void PlaySound(string key)
     {
@@ -177,5 +156,19 @@ public class SoundManager : MonoBehaviour
         }
 
         _as.Stop();
+    }
+
+    public void ChangeVolumeSFX(float newVol)
+    {
+        for (int i = 0; i < soundList.Length; i++)
+        {
+            if (soundList[0].type == SoundType.SFX) soundList[0].volume = newVol;
+        }
+    }
+    public void ChangeVolumeMusic(float newVol)
+    {
+        musicMenu.volume = newVol;
+        inGameMusic.volume = newVol;
+        battleMusic.volume = newVol;
     }
 }

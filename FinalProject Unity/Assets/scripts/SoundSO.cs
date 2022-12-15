@@ -23,4 +23,6 @@ public class SoundSO : ScriptableObject
     public float maxDistance;
 
     public bool loop;
+
+    public SoundType type;
 }

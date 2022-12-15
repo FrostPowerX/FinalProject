@@ -16,17 +16,22 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] int ammoPistol;
     [SerializeField] float maxDistance;
 
-    [SerializeField] Controlls controlls;
-    [SerializeField] Controlls.OnFootActions onFoot;
-
-    [SerializeField] Image puntero;
     [SerializeField] Image barLife;
     [SerializeField] GameObject panel;
+
+    [SerializeField] bool animatorEnabled;
+
+    Controlls controlls;
+    Controlls.OnFootActions onFoot;
+
+    public Weapon[] Weapons { get { return weapons; } }
+    public Weapon Weapon { get { return currentWeapon; } }
+    public int AmmoRifle { get { return ammoRifle; } set { ammoRifle = value; } }
+    public int AmmoPistol { get { return ammoPistol; } set { ammoPistol = value; } }
 
     bool shoot;
     bool onMenu;
 
-    // Start is called before the first frame update
     void Start()
     {
         controlls = new Controlls();
@@ -35,21 +40,33 @@ public class PlayerShoot : MonoBehaviour
         onFoot.Enable();
 
         weapons = new Weapon[3];
-    }
 
-    // Update is called once per frame
+        anim.enabled = animatorEnabled;
+
+        if (barLife == null) barLife = UIManager.Instance.GetEnemyBarFill();
+        if (panel == null) panel = UIManager.Instance.GetPanelEnemy();
+    }
     void Update()
     {
         if (onMenu) return;
 
         Inputs();
 
-        anim.SetBool("OnShoot", shoot);
+        if (anim.enabled) anim.SetBool("OnShoot", shoot);
     }
-
     private void FixedUpdate()
     {
         LookAndShoot();
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Weapon")
+        {
+            Weapon target = collision.gameObject.GetComponent<Weapon>();
+            if (!target.Pickeable) return;
+            if (EquipWeapon(target.Name)) Destroy(target.gameObject);
+        }
     }
 
     private void Inputs()
@@ -57,9 +74,9 @@ public class PlayerShoot : MonoBehaviour
         shoot = onFoot.Shoot.IsPressed() ? true : false;
 
         if (currentWeapon != null) currentWeapon.Shooting = shoot;
-        if (onFoot.Weapon1.triggered) SelectWeapon(0);
-        if (onFoot.Weapon2.triggered) SelectWeapon(1);
-        if (onFoot.Weapon3.triggered) SelectWeapon(2);
+        if (onFoot.Weapon1.triggered) SelectWeapon(0, false);
+        if (onFoot.Weapon2.triggered) SelectWeapon(1, false);
+        if (onFoot.Weapon3.triggered) SelectWeapon(2, false);
         if (onFoot.DropWeapon.triggered) DropWeapon();
         if (onFoot.Reload.triggered && currentWeapon != null)
         {
@@ -71,6 +88,10 @@ public class PlayerShoot : MonoBehaviour
 
                 case WeaponType.Secondary:
                     ammoPistol = currentWeapon.Reload(ammoPistol);
+                    break;
+
+                default:
+                    currentWeapon.Reload(0);
                     break;
             }
             UpdateUI(currentWeapon.Type);
@@ -101,8 +122,10 @@ public class PlayerShoot : MonoBehaviour
             panel.SetActive(false);
         }
 
-        if ((shoot && currentWeapon != null) && currentWeapon.Reloading == false)
+        if (shoot && currentWeapon != null)
         {
+            ReloadNoAmmo();
+            if (currentWeapon.Reloading) return;
             currentWeapon.RayShoot(cam.gameObject);
             UpdateUI(currentWeapon.Type);
         }
@@ -112,15 +135,19 @@ public class PlayerShoot : MonoBehaviour
         switch (type)
         {
             case WeaponType.Primary:
-                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoRifle);
+                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoRifle, true);
                 break;
 
             case WeaponType.Secondary:
-                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoPistol);
+                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoPistol, true);
+                break;
+
+            case WeaponType.Mele:
+                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, 0, false);
                 break;
         }
     }
-    private void SelectWeapon(int num)
+    private void SelectWeapon(int num, bool OnTake)
     {
         switch (num)
         {
@@ -138,6 +165,7 @@ public class PlayerShoot : MonoBehaviour
                 }
                 else
                 {
+                    if (OnTake) return;
                     if (weapons[0] == null) return;
 
                     for (int i = 0; i < showWeapons.Length; i++)
@@ -169,6 +197,7 @@ public class PlayerShoot : MonoBehaviour
                 }
                 else
                 {
+                    if (OnTake) return;
                     if (weapons[1] == null) return;
 
                     for (int i = 0; i < showWeapons.Length; i++)
@@ -200,6 +229,7 @@ public class PlayerShoot : MonoBehaviour
                 }
                 else
                 {
+                    if (OnTake) return;
                     if (weapons[2] == null) return;
 
                     for (int i = 0; i < showWeapons.Length; i++)
@@ -234,6 +264,7 @@ public class PlayerShoot : MonoBehaviour
                         if (weapons[0] == null)
                         {
                             weapons[0] = target;
+                            SelectWeapon(0, true);
                             return true;
                         }
                         break;
@@ -242,6 +273,7 @@ public class PlayerShoot : MonoBehaviour
                         if (weapons[1] == null)
                         {
                             weapons[1] = target;
+                            SelectWeapon(1, true);
                             return true;
                         }
                         break;
@@ -250,6 +282,7 @@ public class PlayerShoot : MonoBehaviour
                         if (weapons[2] == null)
                         {
                             weapons[2] = target;
+                            SelectWeapon(2, true);
                             return true;
                         }
                         break;
@@ -286,16 +319,43 @@ public class PlayerShoot : MonoBehaviour
 
         currentWeapon = null;
     }
-
-    private void OnCollisionStay(Collision collision)
+    private void ReloadNoAmmo()
     {
-        if (collision.gameObject.tag == "Weapon")
+        switch (currentWeapon.Type)
         {
-            Weapon target = collision.gameObject.GetComponent<Weapon>();
-            if (!target.Pickeable) return;
-            if (EquipWeapon(target.Name)) Destroy(target.gameObject);
+            case WeaponType.Primary:
+                if (currentWeapon.Ammo <= 0) ammoRifle = currentWeapon.Reload(ammoRifle);
+                break;
+            case WeaponType.Secondary:
+                if (currentWeapon.Ammo <= 0) ammoPistol = currentWeapon.Reload(ammoPistol);
+                break;
+
+            default:
+                break;
         }
     }
 
+    public int WeaponEquipedIndex()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i] == null) break;
+            if (currentWeapon.Name == weapons[i].Name) return i;
+        }
+
+        return -1;
+    }
+    public void LoadData(WeaponSave primary, WeaponSave secundary, WeaponSave mele, int equiped)
+    {
+        EquipWeapon(primary.name);
+        EquipWeapon(secundary.name);
+        EquipWeapon(mele.name);
+
+        if (weapons[0] != null) weapons[0].Ammo = primary.ammo;
+        if (weapons[1] != null) weapons[1].Ammo = secundary.ammo;
+        if (weapons[2] != null) weapons[2].Ammo = mele.ammo;
+
+        SelectWeapon(equiped, false);
+    }
     public void OnMenu(bool value) => onMenu = value;
 }

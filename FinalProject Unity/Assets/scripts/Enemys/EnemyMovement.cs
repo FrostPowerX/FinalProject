@@ -21,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         tempo = cooldown;
+        agent.isStopped = true;
     }
 
     // Update is called once per frame

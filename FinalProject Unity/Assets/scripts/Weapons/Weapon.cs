@@ -36,6 +36,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] GameObject hitPoint;
     [SerializeField] bool isDroped;
 
+    [SerializeField] AudioClip shot;
+    [SerializeField] AudioClip reload;
+    [SerializeField] AudioClip outAmmo;
+
     float _cooldown;
     float _reloadTime;
     [SerializeField] float _pickCooldown;
@@ -44,17 +48,18 @@ public class Weapon : MonoBehaviour
     bool shooting;
     [SerializeField] bool pickeable;
 
-    Animator animator;
+    [SerializeField] Animator animator;
 
     public string Name { get { return _name; } }
 
     public float Damage { get { return damage; } }
-    public int Ammo { get { return ammo; } }
+    public int Ammo { get { return ammo; } set { ammo = value; } }
     public int MaxAmmo { get { return maxAmmo; } }
     public float MaxDistance { get { return distance; } }
 
     public WeaponType Type { get { return weaponType; } }
     public GameObject DropObjt { get { return prefab; } }
+    public WeaponSO Reference { get { return reference; } }
 
     public bool Pickeable { get { return pickeable; } }
     public bool Reloading { get { return reloading; } }
@@ -63,19 +68,16 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         Init();
-
         if (!isDroped) gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        ammo = maxAmmo;
-
         _cooldown = 0;
         _reloadTime = 0;
         reloading = false;
 
-        animator = GetComponent<Animator>();
+        if (animator == null) animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -109,23 +111,47 @@ public class Weapon : MonoBehaviour
         icon = reference.icon;
         hitPoint = reference.hitPoint;
         prefab = reference.prefab;
+
+        shot = reference.Shot;
+        reload = reference.Reload;
+        outAmmo = reference.outAmmo;
     }
     private void AnimationController()
     {
         if (animator == null) return;
 
-        if (ammo > 0 && !reloading) animator.SetBool("Shooting", shooting);
-        else if (ammo <= 0) animator.SetBool("Shooting", false);
+        if (((ammo > 0 && !reloading) && _cooldown <= 0) || (weaponType == WeaponType.Mele && _cooldown <= 0) && !reloading) animator.SetBool("Shooting", shooting);
+        else if (ammo <= 0 || weaponType == WeaponType.Mele)
+        {
+            animator.SetBool("Shooting", false);
+
+        }
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+    private void StopSound()
+    {
+        audioSource.Stop();
     }
 
     public void RayShoot(GameObject point)
     {
         if (weaponType != WeaponType.Mele)
         {
-            if (ammo <= 0) return;
+            if (ammo <= 0)
+            {
+                PlaySound(outAmmo);
+                return;
+            }
             if (reloading) return;
-        }
+        }    
         if (_cooldown != 0) return;
+
+        StopSound();
+        PlaySound(shot);
 
         ammo--;
 
@@ -143,6 +169,7 @@ public class Weapon : MonoBehaviour
                 target.TakeDamage(damage);
             }
         }
+        else if (weaponType == WeaponType.Mele) PlaySound(outAmmo);
 
         _cooldown = cooldown;
     }
@@ -154,6 +181,9 @@ public class Weapon : MonoBehaviour
             if (reloading) return;
         }
         if (_cooldown != 0) return;
+
+        StopSound();
+        PlaySound(shot);
 
         ammo--;
 
@@ -178,9 +208,21 @@ public class Weapon : MonoBehaviour
     public int Reload(int ammo)
     {
         if (reloading) return ammo;
+
+        if (weaponType == WeaponType.Mele)
+        {
+            animator.SetTrigger("Reload");
+            PlaySound(reload);
+            _reloadTime = 1f;
+            reloading = true;
+        }
+
         if (weaponType == WeaponType.Mele) return ammo;
         if (ammo <= 0) return ammo;
         if (this.ammo == maxAmmo) return ammo;
+
+        animator.SetTrigger("Reload");
+        PlaySound(reload);
 
         int ammoNeed = maxAmmo - this.ammo;
 

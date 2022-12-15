@@ -24,6 +24,8 @@ public class EnemyShoot : MonoBehaviour
     [SerializeField] float shootCooldown;
 
     [SerializeField] bool shooting;
+    [SerializeField] bool Freezed;
+    [SerializeField] bool dontShoot;
 
     Vector3 target;
 
@@ -53,7 +55,7 @@ public class EnemyShoot : MonoBehaviour
 
         target = GameManager.Instance.GetPlayerPos() - transform.position;
 
-        movement.OnView(onView);
+        if (!Freezed) movement.OnView(onView);
 
         ShootingController();
     }
@@ -95,12 +97,13 @@ public class EnemyShoot : MonoBehaviour
         {
             Debug.DrawRay(fakeHead.transform.position, ray.direction * hit.distance, Color.red);
 
-            Shoot();
+            if (onView) Shoot();
         }
     }
     private void Shoot()
     {
         if (!shooting) return;
+        if (dontShoot) return;
 
         currentWeapon.RayShoot(fakeHead, target);
     }

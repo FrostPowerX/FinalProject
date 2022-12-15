@@ -25,3 +25,6 @@ MonoBehaviour:
   icon: {fileID: 21300038, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
   hitPoint: {fileID: 0}
   prefab: {fileID: 245343041416455202, guid: 966d41352a4e34f41b96331bc70132bf, type: 3}
+  Shot: {fileID: 8300000, guid: 08f9b54caefb9ef408e46fb408dec277, type: 3}
+  Reload: {fileID: 8300000, guid: f21e08e26880997478b82eb6058c68b5, type: 3}
+  outAmmo: {fileID: 8300000, guid: 3a866bc11423ed545b265dfc98964cba, type: 3}

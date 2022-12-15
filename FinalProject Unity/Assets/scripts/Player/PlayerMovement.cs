@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float maxSpeedGravity;
     [SerializeField] ForceMode forcemode;
 
+    [SerializeField] bool animatorEnabled;
+
     bool jump;
     bool onMenu;
 
@@ -41,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         controlls = new Controlls();
         onFoot = controlls.OnFoot;
         onFoot.Enable();
+
+        anim.enabled = animatorEnabled;
     }
 
     // Update is called once per frame
@@ -54,12 +58,12 @@ public class PlayerMovement : MonoBehaviour
         if (onFoot.Run.IsPressed())
         {
             useSpeed = runSpeed;
-            anim.SetBool("OnRun", true);
+            if (anim.enabled) anim.SetBool("OnRun", true);
         }
         else
         {
             useSpeed = moveSpeed;
-            anim.SetBool("OnRun", false);
+            if (anim.enabled) anim.SetBool("OnRun", false);
         }
     }
 
@@ -81,17 +85,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveX != 0 || moveZ != 0)
         {
-            anim.SetBool("OnWalk", true);
+            if (anim.enabled) anim.SetBool("OnWalk", true);
             Vector3 directionX = transform.right * useSpeed * moveX;
             Vector3 directionZ = transform.forward * useSpeed * moveZ;
             rb.AddForce(directionX, ForceMode.VelocityChange);
             rb.AddForce(directionZ, ForceMode.VelocityChange);
         }
-        else anim.SetBool("OnWalk", false);
+        else if (anim.enabled) anim.SetBool("OnWalk", false);
     }
     private void Jump()
     {
-        anim.SetTrigger("Jump");
+        if (anim.enabled) anim.SetTrigger("Jump");
         Vector3 directionY = transform.up * jumpForce;
         rb.AddForce(directionY, jumpMode);
     }

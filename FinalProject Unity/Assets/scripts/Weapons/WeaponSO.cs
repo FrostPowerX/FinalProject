@@ -26,4 +26,7 @@ public class WeaponSO : ScriptableObject
     public GameObject hitPoint;
     public GameObject prefab;
 
+    public AudioClip Shot;
+    public AudioClip Reload;
+    public AudioClip outAmmo;
 }
