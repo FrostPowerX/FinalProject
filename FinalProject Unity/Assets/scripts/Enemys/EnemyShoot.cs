@@ -39,8 +39,7 @@ public class EnemyShoot : MonoBehaviour
         int index = Random.Range(0, weapons.Length);
         EquipWeapon(index);
 
-        if (currentWeapon != null && currentWeapon.Type != WeaponType.Mele) maxDistance = currentWeapon.MaxDistance + (currentWeapon.MaxDistance * 0.2f);
-        else maxDistance = 35f;
+        if (currentWeapon != null) maxDistance = (currentWeapon.MaxDistance > 20) ? currentWeapon.MaxDistance + (currentWeapon.MaxDistance * 0.2f) : 20;
 
         movement.FollowDistance(currentWeapon.MaxDistance * 0.9f);
 

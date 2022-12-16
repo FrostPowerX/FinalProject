@@ -93,6 +93,8 @@ public class UIManager : MonoBehaviour
 
         _autoSave = autoSaveTime;
 
+        if (_isMainMenu) Cursor.lockState = CursorLockMode.None;
+
         LoadSettings();
     }
 
@@ -319,8 +321,6 @@ public class UIManager : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.StopMusicGame();
         if (SoundManager.Instance != null) SoundManager.Instance.PlayMusicMenu();
         StartCoroutine(LoadAsynchronously(loadSceneIndex));
-        Destroy(gameObject);
-        Destroy(GameManager.Instance.gameObject);
     }
 
     public void Message(string message, float duration,Color col)
@@ -379,11 +379,11 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.Player.transform.position = _gameSaves.Position;
         GameManager.Instance.Player.transform.rotation = _gameSaves.Rotation;
 
+        EnemyManager.instance.DestroyEnemysOnLoad(_gameSaves.enemys.idsDeath);
+
         player.LoadData(_gameSaves.primary, _gameSaves.secundary, _gameSaves.mele, _gameSaves.weaponEquiped);
         player.AmmoRifle = _gameSaves.ammoRifle;
         player.AmmoPistol = _gameSaves.ammoPistol;
-
-        EnemyManager.instance.DestroyEnemysOnLoad(_gameSaves.enemys.idsDeath);
 
         GameManager.Instance.Player.GetComponent<HealthSystem>().SetHealth(_gameSaves.health);
         GameManager.Instance.Player.GetComponent<HealthSystem>().SetMaxHealth(_gameSaves.maxHealth);

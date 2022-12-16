@@ -23,7 +23,7 @@ MonoBehaviour:
   dispersion: 0
   weaponType: 0
   icon: {fileID: 21300044, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
-  hitPoint: {fileID: 0}
+  hitPoint: {fileID: 5599529565867938600, guid: 859aebab599c3b94a98e9ded531e2f73, type: 3}
   prefab: {fileID: 5994336219050826499, guid: 14ce6863fc7012743949364750010fe9, type: 3}
   Shot: {fileID: 8300000, guid: 5304d262fb31541439122e589562aecc, type: 3}
   Reload: {fileID: 8300000, guid: 7a2c6caa8435d644ca8d9fd2d53b2555, type: 3}

@@ -161,7 +161,8 @@ public class Weapon : MonoBehaviour
         {         
             if (hit.transform.GetComponent<HealthSystem>() == null)
             {
-                if (hitPoint != null) Instantiate(hitPoint, hit.point, hit.transform.rotation, hit.transform);
+                if (hitPoint != null) Instantiate(hitPoint, hit.point, hit.transform.rotation);
+
             }
             else
             {

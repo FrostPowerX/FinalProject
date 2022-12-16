@@ -247,7 +247,7 @@ public class PlayerShoot : MonoBehaviour
                 }
                 break;
         }
-
+        if (currentWeapon == null) return;
         UpdateUI(currentWeapon.Type);
     }
     private bool EquipWeapon(string name)

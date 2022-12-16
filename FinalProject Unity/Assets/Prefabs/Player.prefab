@@ -191,7 +191,7 @@ MonoBehaviour:
   audioSource: {fileID: 2325499509905002988}
   prefab: {fileID: 0}
   icon: {fileID: 0}
-  hitPoint: {fileID: 0}
+  hitPoint: {fileID: 5599529565867938600, guid: 859aebab599c3b94a98e9ded531e2f73, type: 3}
   isDroped: 0
   shot: {fileID: 0}
   reload: {fileID: 0}
@@ -606,7 +606,7 @@ MonoBehaviour:
   gravity: 100
   maxSpeedGravity: 25
   forcemode: 5
-  animatorEnabled: 0
+  animatorEnabled: 1
 --- !u!114 &1779128591363716022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,12 +628,12 @@ MonoBehaviour:
   - {fileID: 3118608049229018341}
   weapons: []
   currentWeapon: {fileID: 0}
-  ammoRifle: 250
-  ammoPistol: 120
+  ammoRifle: 50
+  ammoPistol: 30
   maxDistance: 5
   barLife: {fileID: 0}
   panel: {fileID: 0}
-  animatorEnabled: 0
+  animatorEnabled: 1
 --- !u!114 &1779128591363716020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   audioSource: {fileID: 9086207494184523105}
   prefab: {fileID: 0}
   icon: {fileID: 0}
-  hitPoint: {fileID: 0}
+  hitPoint: {fileID: 5599529565867938600, guid: 859aebab599c3b94a98e9ded531e2f73, type: 3}
   isDroped: 0
   shot: {fileID: 0}
   reload: {fileID: 0}
@@ -1307,7 +1307,7 @@ MonoBehaviour:
   audioSource: {fileID: 3291012531616556269}
   prefab: {fileID: 0}
   icon: {fileID: 0}
-  hitPoint: {fileID: 0}
+  hitPoint: {fileID: 5599529565867938600, guid: 859aebab599c3b94a98e9ded531e2f73, type: 3}
   isDroped: 0
   shot: {fileID: 0}
   reload: {fileID: 0}
@@ -2025,7 +2025,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2836004475591695743, guid: f432554f564e69242897607d34218939, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2836004475605291069, guid: f432554f564e69242897607d34218939, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f432554f564e69242897607d34218939, type: 3}

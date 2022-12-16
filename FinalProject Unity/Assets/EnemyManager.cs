@@ -21,6 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     public void DestroyEnemysOnLoad(bool[] idsDeaths)
     {
+        if (enemys.Length != idsDeaths.Length) return;
         for (int i = 0; i < enemys.Length; i++)
         {
             if (idsDeaths[i]) enemys[i].GetComponent<HealthSystem>().Kill();

@@ -91,12 +91,13 @@ public class HealthSystem : MonoBehaviour
 
     public void SetHealth(float amount)
     {
-        currentHealth = amount;
+        currentHealth =(amount <= maxHealth) ? amount : maxHealth;
         UpdateUI();
     }
     public void SetMaxHealth(float amount)
     {
         maxHealth = amount;
+        currentHealth = (currentHealth > maxHealth) ? maxHealth : currentHealth;
         UpdateUI();
     }
 

@@ -5,14 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
+    [SerializeField] bool automatic;
+    [SerializeField] int sceneID;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            other.transform.position = new Vector3(0, 1, 0);
-            int id = 1 + SceneManager.GetActiveScene().buildIndex;
-            UIManager.Instance.SaveGame();
-            UIManager.Instance.LoadScene(id);
+            if (automatic)
+            {
+                other.transform.position = new Vector3(0, 1, 0);
+                int id = 1 + SceneManager.GetActiveScene().buildIndex;
+                UIManager.Instance.SaveGame();
+                UIManager.Instance.LoadScene(id);
+            }
+            else
+            {
+                UIManager.Instance.MainMenu();
+            }
         }
     }
 }
