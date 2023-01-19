@@ -37,20 +37,24 @@ public class EnemyMovement : MonoBehaviour
 
     private void Move()
     {
+        float distance = Vector3.Distance(transform.position, GameManager.Instance.GetPlayerPos());
         if ((tempo > 0 || onView))
         {
-            if (Vector3.Distance(transform.position, GameManager.Instance.GetPlayerPos()) > followDistance)
+            if (onView && distance < followDistance)
+            {
+                Transform playerTrans = GameManager.Instance.Player.transform;
+
+                agent.isStopped = true; 
+                transform.LookAt(playerTrans);
+                tempo = cooldown;
+            }
+            if (!onView && tempo <= 0) agent.isStopped = true;
+
+            if (distance > followDistance)
             {
                 if (agent.isStopped) agent.isStopped = false;
                 agent.SetDestination(GameManager.Instance.GetPlayerPos());
-                Transform playerTrans = GameManager.Instance.Player.transform;
-                if (onView)
-                {
-                    transform.LookAt(playerTrans);
-                    tempo = cooldown;
-                }
             }
-            else if (!agent.isStopped) agent.isStopped = true;
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AK47
   m_EditorClassIdentifier: 
   _name: AK47
-  description: Arma Primaria con mucha potencia de fuego.
+  description: "Arma Primaria con da\xF1o moderado."
   ammo: 30
   maxAmmo: 30
   damage: 15

@@ -1,51 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public struct WeaponSave
-{
-    public string name;
-    public int ammo;
-}
-
-[System.Serializable]
-public struct EnemysSave
-{
-    public bool[] idsDeath;
-}
-
-[System.Serializable]
-public struct PlayerSaves
-{
-    public string Name;
-    public float Duration;
-    public int Level;
-
-    public Vector3 Position;
-    public Quaternion Rotation;
-
-    public WeaponSave primary;
-    public WeaponSave secundary;
-    public WeaponSave mele;
-
-    public int weaponEquiped;
-
-    public EnemysSave enemys;
-
-    public int ammoRifle;
-    public int ammoPistol;
-
-    public float health;
-    public float maxHealth;
-}
-
 public enum PathSaves
 {
     GamseSave,
     SettingsSave
+}
+
+[System.Serializable]
+public struct GameSave
+{
+    public EnemysSave[] enemySave;
+    public PlayerSaves playerSave;
+    public Scene sceneSave;
 }
 
 public class SaveManager : MonoBehaviour
@@ -53,9 +23,14 @@ public class SaveManager : MonoBehaviour
     static SaveManager _instance;
     public static SaveManager Instance { get { return _instance; } }
 
+    private GameSave gameSave;
+    private List<GameSave> gameSaveList;
+
     public PlayerSettings _settings;
-    public PlayerSaves _saves;
-    public Scene escena;
+
+    public EnemysSave[] enemysSaves;
+    public PlayerSaves playerSaves;
+    public Scene scene;
 
     [SerializeField] string pathSettingsSave;
     [SerializeField] string pathGameSave;
@@ -84,21 +59,26 @@ public class SaveManager : MonoBehaviour
             print("Load Succes!");
             return;
         }
-        print("Fail to load settings!");
+        print("Fail to load settings! The file dosnt exist or corrupt!");
     }
-
     public void SaveSettings()
     {
         string playerSettings = JsonUtility.ToJson(_settings);
         File.WriteAllText(Application.dataPath + pathSettingsSave, playerSettings);
         print("Save settings Succes!");
     }
+
     public void LoadGame()
     {
         if (File.Exists(Application.dataPath + pathGameSave))
         {
             string gameSave = File.ReadAllText(Application.dataPath + pathGameSave);
-            _saves = JsonUtility.FromJson<PlayerSaves>(gameSave);
+            this.gameSave = JsonUtility.FromJson<GameSave>(gameSave);
+
+            playerSaves = this.gameSave.playerSave;
+            enemysSaves = this.gameSave.enemySave;
+            scene = this.gameSave.sceneSave;
+
             print("Load GameSave Succes!");
             return;
         }
@@ -106,7 +86,11 @@ public class SaveManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        string gameSave = JsonUtility.ToJson(_saves);
+        this.gameSave.enemySave = enemysSaves;
+        this.gameSave.playerSave = playerSaves;
+        this.gameSave.sceneSave = scene;
+
+        string gameSave = JsonUtility.ToJson(this.gameSave);
         File.WriteAllText(Application.dataPath + pathGameSave, gameSave);
         print("Save GameSave Succes!");
     }

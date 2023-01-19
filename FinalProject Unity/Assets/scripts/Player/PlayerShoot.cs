@@ -94,7 +94,6 @@ public class PlayerShoot : MonoBehaviour
                     currentWeapon.Reload(0);
                     break;
             }
-            UpdateUI(currentWeapon.Type);
         }
     }
     private void LookAndShoot()
@@ -127,24 +126,6 @@ public class PlayerShoot : MonoBehaviour
             ReloadNoAmmo();
             if (currentWeapon.Reloading) return;
             currentWeapon.RayShoot(cam.gameObject);
-            UpdateUI(currentWeapon.Type);
-        }
-    }
-    private void UpdateUI(WeaponType type)
-    {
-        switch (type)
-        {
-            case WeaponType.Primary:
-                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoRifle, true);
-                break;
-
-            case WeaponType.Secondary:
-                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, ammoPistol, true);
-                break;
-
-            case WeaponType.Mele:
-                UIManager.Instance.SetAmmo(currentWeapon.Ammo, currentWeapon.MaxAmmo, 0, false);
-                break;
         }
     }
     private void SelectWeapon(int num, bool OnTake)
@@ -248,7 +229,6 @@ public class PlayerShoot : MonoBehaviour
                 break;
         }
         if (currentWeapon == null) return;
-        UpdateUI(currentWeapon.Type);
     }
     private bool EquipWeapon(string name)
     {

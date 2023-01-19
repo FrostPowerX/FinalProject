@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 {
     static GameManager _instance;
 
+    PlayerShoot shoot;
+    HealthSystem health;
+
+    PlayerSaves playerSave;
+
     public static GameManager Instance { get { return _instance; } }
 
     [SerializeField] GameObject prefabPlayer;
@@ -36,7 +41,49 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
+        shoot = player.transform.GetComponent<PlayerShoot>();
+        health = player.transform.GetComponent<HealthSystem>();
+    }
+
+    public void Save()
+    {
+        playerSave.position = player.transform.position;
+        playerSave.rotation = player.transform.rotation;
+
+        playerSave.health = health.Health;      
+        playerSave.maxHealth = health.MaxHealth;
+
+        playerSave.ammoRifle = shoot.AmmoRifle;
+        playerSave.ammoPistol = shoot.AmmoPistol;
+
+        playerSave.primary.name = shoot.Weapons[0].name;
+        playerSave.primary.ammo = shoot.Weapons[0].Ammo;
+
+        playerSave.secundary.name = shoot.Weapons[1].name;
+        playerSave.secundary.ammo = shoot.Weapons[1].Ammo;
+
+        playerSave.mele.name = shoot.Weapons[2].name;
+        playerSave.mele.ammo = shoot.Weapons[2].Ammo;
+
+        playerSave.weaponEquiped = shoot.WeaponEquipedIndex();
+
+        SaveManager.Instance.playerSaves = playerSave;
+    }
+
+    public void Load()
+    {
+        playerSave = SaveManager.Instance.playerSaves;
+
+        health.SetHealth(playerSave.health);
+        health.SetMaxHealth(playerSave.maxHealth);
+
+        player.transform.position = playerSave.position;
+        player.transform.rotation = playerSave.rotation;
+
+        shoot.AmmoPistol = playerSave.ammoPistol;
+        shoot.AmmoRifle = playerSave.ammoRifle;
+
+        shoot.LoadData(playerSave.primary, playerSave.secundary, playerSave.mele, playerSave.weaponEquiped);
     }
 
     private void PlayerDeath()
@@ -49,7 +96,6 @@ public class GameManager : MonoBehaviour
     {
         return player.transform.position;
     }
-
     public Vector3 GetPlayerHeadPos()
     {
         return player.transform.Find("PlayerCam").transform.position;

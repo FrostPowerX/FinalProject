@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
             if (automatic)
             {
                 other.transform.position = new Vector3(0, 1, 0);
-                int id = 1 + SceneManager.GetActiveScene().buildIndex;
+                int id = SceneManager.GetActiveScene().buildIndex + 1;
                 UIManager.Instance.SaveGame();
                 UIManager.Instance.LoadScene(id);
             }

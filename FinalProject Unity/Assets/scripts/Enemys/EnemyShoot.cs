@@ -106,9 +106,30 @@ public class EnemyShoot : MonoBehaviour
 
         currentWeapon.RayShoot(fakeHead, target);
     }
-    private void EquipWeapon(int index)
+
+    public void EquipWeapon(int index)
     {
+        for(int i = 0; i < index +1; i++)
+        {
+            if (weapons[i].gameObject.activeSelf)
+            {
+                weapons[i].gameObject.SetActive(false);
+            }
+        }
+
         currentWeapon = weapons[index].GetComponent<Weapon>();
         weapons[index].gameObject.SetActive(true);
+    }
+    public int GetWeaponIndex()
+    {
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapons[i].gameObject.activeSelf)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

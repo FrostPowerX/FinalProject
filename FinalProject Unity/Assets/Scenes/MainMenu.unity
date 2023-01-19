@@ -9219,12 +9219,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b1fb70a68a7765448ec661717c6aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _saves:
+  enemysSaves: []
+  playerSaves:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 1}
+    health: 0
+    maxHealth: 0
+    shield: 0
+    maxShield: 0
     Name: 
     Duration: 0
     Level: 0
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
     primary:
       name: 
       ammo: 0
@@ -9235,13 +9240,9 @@ MonoBehaviour:
       name: 
       ammo: 0
     weaponEquiped: 0
-    enemys:
-      idsDeath: 
     ammoRifle: 0
     ammoPistol: 0
-    health: 0
-    maxHealth: 0
-  escena:
+  scene:
     m_Handle: 0
   pathSettingsSave: /playerSettings.json
   pathGameSave: /gameSave.json

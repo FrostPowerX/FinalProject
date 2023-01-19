@@ -228,53 +228,11 @@ public class UIManager : MonoBehaviour
     }
     public void SaveGame()
     {
-        PlayerShoot player;
+        if(GameManager.Instance != null) GameManager.Instance.Save();
+        if(EnemyManager.Instance != null) EnemyManager.Instance.SaveEnemys();
 
-        if (GameManager.Instance != null)
-        {
-            player = GameManager.Instance.Player.GetComponent<PlayerShoot>();
-        }
-        else player = null;
+        SaveManager.Instance.playerSaves.Level = SceneManager.GetActiveScene().buildIndex;
 
-        GameObject[] enemys = EnemyManager.instance.Enemys;
-        _gameSaves.Level = SceneManager.GetActiveScene().buildIndex;
-
-        _gameSaves.Position = GameManager.Instance.Player.transform.position;
-        _gameSaves.Rotation = GameManager.Instance.Player.transform.rotation;
-
-        if (player.Weapons[0] != null) _gameSaves.primary.name = player.Weapons[0].Name;
-        if (player.Weapons[0] != null) _gameSaves.primary.ammo = player.Weapons[0].Ammo;
-
-        if (player.Weapons[1] != null) _gameSaves.secundary.name = player.Weapons[1].Name;
-        if (player.Weapons[1] != null) _gameSaves.secundary.ammo = player.Weapons[1].Ammo;
-
-        if (player.Weapons[2] != null) _gameSaves.mele.name = player.Weapons[2].Name;
-        if (player.Weapons[2] != null) _gameSaves.mele.ammo = player.Weapons[2].Ammo;
-
-        _gameSaves.weaponEquiped = player.WeaponEquipedIndex();
-
-        _gameSaves.ammoRifle = player.AmmoRifle;
-        _gameSaves.ammoPistol = player.AmmoPistol;
-
-        _gameSaves.health = GameManager.Instance.Player.GetComponent<HealthSystem>().Health;
-        _gameSaves.maxHealth = GameManager.Instance.Player.GetComponent<HealthSystem>().MaxHealth;
-
-        if (enemys != null)
-        {
-            _gameSaves.enemys.idsDeath = new bool[enemys.Length];
-
-            for (int i = 0; i < enemys.Length; i++)
-            {
-                HealthSystem enemy = enemys[i].GetComponent<HealthSystem>();
-                if (!enemy.IsAlive)
-                {
-                    _gameSaves.enemys.idsDeath[i] = true;
-                }
-                else _gameSaves.enemys.idsDeath[i] = false;
-            }
-        }
-
-        SaveManager.Instance._saves = _gameSaves;
         SaveManager.Instance.SaveGame();
     }
     public void LoadGame()
@@ -285,9 +243,11 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlayMusicGame();
 
         SaveManager.Instance.LoadGame();
-        _gameSaves = SaveManager.Instance._saves;
 
-        loadSceneIndex = _gameSaves.Level;
+        if(EnemyManager.Instance != null) EnemyManager.Instance.LoadEnemys();
+        if(GameManager.Instance != null) GameManager.Instance.Load();
+
+        loadSceneIndex = SaveManager.Instance.playerSaves.Level;
         EventManager.loadGame = true;
         StartCoroutine(LoadAsynchronously(loadSceneIndex));
     }
@@ -306,9 +266,8 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.PlayMusicGame();
 
         SaveManager.Instance.LoadGame();
-        _gameSaves = SaveManager.Instance._saves;
 
-        _gameSaves.Position = new Vector3(0, 1, 0);
+        SaveManager.Instance.playerSaves.position = new Vector3(0, 1, 0);
 
         EventManager.loadGame = true;
         StartCoroutine(LoadAsynchronously(id));
@@ -374,12 +333,10 @@ public class UIManager : MonoBehaviour
         SoundManager.Instance.StopMusicMenu();
         SoundManager.Instance.PlayMusicGame();
 
-        _gameSaves = SaveManager.Instance._saves;
+        _gameSaves = SaveManager.Instance.playerSaves;
         PlayerShoot player = GameManager.Instance.Player.GetComponent<PlayerShoot>();
-        GameManager.Instance.Player.transform.position = _gameSaves.Position;
-        GameManager.Instance.Player.transform.rotation = _gameSaves.Rotation;
-
-        EnemyManager.instance.DestroyEnemysOnLoad(_gameSaves.enemys.idsDeath);
+        GameManager.Instance.Player.transform.position = _gameSaves.position;
+        GameManager.Instance.Player.transform.rotation = _gameSaves.rotation;
 
         player.LoadData(_gameSaves.primary, _gameSaves.secundary, _gameSaves.mele, _gameSaves.weaponEquiped);
         player.AmmoRifle = _gameSaves.ammoRifle;

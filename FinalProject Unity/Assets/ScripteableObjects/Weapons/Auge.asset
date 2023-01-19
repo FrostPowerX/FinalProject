@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Auge
   m_EditorClassIdentifier: 
   _name: Auge
-  description: Arma Primaria con mucha potencia de fuego.
+  description: "Arma Primaria con Mucho da\xF1o."
   ammo: 21
   maxAmmo: 21
   damage: 23
